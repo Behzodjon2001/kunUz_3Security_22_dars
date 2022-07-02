@@ -1,0 +1,71 @@
+POST http://localhost:8080/article/adm/create
+Content-Type: application/json
+Authorization: Basic Ali alish123
+
+{
+
+  "content": "referendum haqida",
+  "description": "referendum haqida toliq",
+  "regionId": 3,
+  "categoryId": 2,
+  "typesList": [1, 2],
+  "tagList": ["sotsial", "d2as"]
+}
+
+###
+
+GET http://localhost:8080/article/list/cat
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU4NDQwMDIsImV4cCI6MTY1NjA2MDAwMiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.cuh_kcsp2kpnJ5Qfbq2yd0VNQHpX-HNfVJF3g58doZ4
+
+###
+
+GET http://localhost:8080/article/list
+
+###
+
+GET http://localhost:8080/article/list/type?key=dunyo
+
+
+###
+
+DELETE http://localhost:8080/article/delete/4028ab428157bce8018157bdbded0000
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwNDk4MjgsImV4cCI6MTY1NTA1MzQyOCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.LJl8zheQTQMAX2T0ediViN27SrROrNpwgdG9lkhNJbk
+
+###
+
+GET localhost:8080/article/pagination?page=1&size=10
+
+###
+
+GET localhost:8080/article/list/8
+Content-Type: application/json
+
+{
+  "idList": ["8a8a85138167727401816774b5140001",
+  "8a8a851381677274018167740d740000",
+  "ff808081816269b9018162744c3a000c"]
+}
+
+###
+
+GET http://localhost:8080/article/list/3?type=dunyo
+
+
+###
+GET http://localhost:8080/article/category/dolzarb
+###
+GET localhost:8080/article/list4_most
+###
+GET localhost:8080/article/listByTag/meva
+###
+GET localhost:8080/article/listByTypeByRegion/dolzarb/buxoro
+###
+PUT localhost:8080/article/adm/view_count
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2NTQxOTYsImV4cCI6MTY1NTg3MDE5NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.5hRlWaovrLiRMo_fUb7sem8oI--NvU7nCvmayN35Xug
+Content-ID: 402880e58187c2c7018187ead0510000
+###
+GET localhost:8080/article/public/listByCategoryByPagination?category=dolzarb&page=0&size=5
+###
+GET localhost:8080/article/listFullInfo
+Accept-Language: uz
+Content-ID: 402880e58187c2c7018187ead0510000

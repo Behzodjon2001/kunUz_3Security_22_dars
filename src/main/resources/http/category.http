@@ -1,0 +1,15 @@
+POST localhost:8080/category/adm/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU4NDA1NjEsImV4cCI6MTY1NjA1NjU2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hc-Zvy9Wi3V7b5HGp0IFqg_GYt_h3JPVG8B43hqLdq4
+
+{
+  "key": "interviyu",
+  "nameUz": "uz",
+  "nameRu": "ru",
+  "nameEn": "en"
+}
+
+###
+
+GET http://localhost:8080/category/list/public
+Accept-Language: ru

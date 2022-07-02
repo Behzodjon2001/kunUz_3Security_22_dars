@@ -1,0 +1,21 @@
+POST http://localhost:8080/attach/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="videoplayback.mp4"
+
+< C:\Users\SUKHROB\Desktop\videoplayback.mp4
+
+###
+
+POST http://localhost:8080/attach/admUser/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="lanbargine.jpg"
+
+< C:\Users\Acer\Downloads\lanbargine.jpg
+
+###
+
+GET localhost:8080/attach/adm/pagination?page=1&size=10
