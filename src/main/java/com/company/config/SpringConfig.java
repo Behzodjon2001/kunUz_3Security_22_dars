@@ -1,23 +1,42 @@
 package com.company.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 public class SpringConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    private static final String[] AUTH_WHITELIST = {
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-resources",
+            "/swagger-resources/**"
+    };
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // Authentication
-        auth.inMemoryAuthentication()
-                .withUser("1").password("{bcrypt}$2a$10$8iNTeno76dTI41UOvf2EJeBgFJYldLMl0hMHYZ6zO1TT6.VzDS8Za").roles("ADMIN")
-                .and()
-                .withUser("4").password("{noop}2225").roles("USER")
-                .and()
-                .withUser("5").password("{noop}1245").roles("USER");
+        auth.userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -48,19 +67,13 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .and().httpBasic();
+        http.cors().disable();
         http.csrf().disable();
+    }
 
-
-
-//           "/profile/adm/*");
-//           "/article/adm/*");
-//           "/article_like/*");
-//           "/category/adm/*");
-//           "/comment/adm/*");
-//           "/region/adm/*");
-//           "/types/adm/*");
-//           "/comment_like/*");
-//           "/attach/adm/*");
-//           "/sms/adm/*");
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+//        return new BCryptPasswordEncoder();
     }
 }

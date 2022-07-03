@@ -47,7 +47,7 @@ public class AuthService {
         entity.setPhone(dto.getPhone());
         entity.setPassword(dto.getPassword());
 
-        entity.setRole(ProfileRole.USER);
+        entity.setRole(ProfileRole.ROLE_USER);
         entity.setStatus(ProfileStatus.ACTIVE);
         entity.setVisible(true);
 

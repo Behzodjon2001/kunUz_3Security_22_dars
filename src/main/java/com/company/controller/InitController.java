@@ -35,7 +35,7 @@ public class InitController {
         entity.setSurname("AdminAli");
         entity.setEmail("admin");
         entity.setPassword("123");
-        entity.setRole(ProfileRole.ADMIN);
+        entity.setRole(ProfileRole.ROLE_ADMIN);
         entity.setStatus(ProfileStatus.ACTIVE);
         entity.setVisible(true);
         profileRepository.save(entity);

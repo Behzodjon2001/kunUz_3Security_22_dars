@@ -1,8 +1,8 @@
 package com.company.enums;
 
 public enum ProfileRole {
-    USER,
-    MODERATOR,
-    ADMIN,
-    PUBLISHER
+    ROLE_USER,
+    ROLE_MODERATOR,
+    ROLE_ADMIN,
+    ROLE_PUBLISHER
 }
