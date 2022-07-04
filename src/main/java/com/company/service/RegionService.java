@@ -54,8 +54,8 @@ public class RegionService {
         return list;
     }
 
-    public void update(RegionDTO dto) {
-       RegionEntity entity = get(dto.getKey());
+    public void update(RegionDTO dto,String key) {
+       RegionEntity entity = get(key);
        entity.setKey(dto.getKey());
        entity.setNameUz(dto.getNameUz());
        entity.setNameRu(dto.getNameRu());

@@ -28,7 +28,7 @@ public class CommentController {
                                     HttpServletRequest request) {
         log.info("Request for create {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        CommentDTO commentDTO = commentService.create(dto, id, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        CommentDTO commentDTO = commentService.create(dto, id, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body(commentDTO);
     }
 
@@ -37,7 +37,7 @@ public class CommentController {
                                     HttpServletRequest request) {
         log.info("Request for update {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        commentService.update(dto, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        commentService.update(dto, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body("Successfully updated");
     }
 
@@ -62,7 +62,7 @@ public class CommentController {
                                           HttpServletRequest request){
         log.info("Request for delete by user {}" , id);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        commentService.delete(Integer.valueOf(CurrentUser.getCurrentUser().getUsername()), id);
+        commentService.delete(CurrentUser.getCurrentUser().getProfile().getId(), id);
         return ResponseEntity.ok().body("Deleted");
     }
 }

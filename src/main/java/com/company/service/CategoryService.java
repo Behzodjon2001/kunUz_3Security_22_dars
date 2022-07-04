@@ -23,8 +23,8 @@ public class CategoryService {
     public CategoryDTO create(CategoryDTO dto) {
         Optional<CategoryEntity> optional = categoryRepository.findByKey(dto.getKey());
         if (optional.isPresent()) {
-            log.error("This region already exist {}" , dto);
-            throw new BadRequestException("This region already exist");
+            log.error("This category already exist {}" , dto);
+            throw new BadRequestException("This category already exist");
         }
         CategoryEntity entity = new CategoryEntity();
         entity.setKey(dto.getKey());
@@ -55,8 +55,8 @@ public class CategoryService {
         return list;
     }
 
-    public void update(CategoryDTO dto) {
-        CategoryEntity entity = get(dto.getKey());
+    public void update(CategoryDTO dto,String key) {
+        CategoryEntity entity = get(key);
         entity.setKey(dto.getKey());
         entity.setNameUz(dto.getNameUz());
         entity.setNameRu(dto.getNameRu());

@@ -28,7 +28,7 @@ public class CommentLikeController {
     public ResponseEntity<Void> like(@RequestBody CommentLikeDTO dto) {
         log.info("Request for like {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        commentLikeService.commentLike(dto.getCommentId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        commentLikeService.commentLike(dto.getCommentId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 
@@ -36,7 +36,7 @@ public class CommentLikeController {
     public ResponseEntity<Void> dislike(@RequestBody CommentLikeDTO dto) {
         log.info("Request for dislike {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        commentLikeService.commentDislike(dto.getCommentId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        commentLikeService.commentDislike(dto.getCommentId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 
@@ -44,7 +44,7 @@ public class CommentLikeController {
     public ResponseEntity<Void> remove(@RequestBody CommentLikeDTO dto) {
         log.info("Request for remove {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        commentLikeService.removeLike(dto.getCommentId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        commentLikeService.removeLike(dto.getCommentId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 }

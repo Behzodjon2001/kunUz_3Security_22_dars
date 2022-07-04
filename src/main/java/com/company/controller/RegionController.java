@@ -28,19 +28,27 @@ public class RegionController {
         return ResponseEntity.ok().body(regionDTO);
     }
 
-    @GetMapping("/public/list")
-    public ResponseEntity<?> list() {
+    @GetMapping("/adm/list")
+    public ResponseEntity<?> listByAdmin() {
         log.info("Request for list {}" );
 //        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
         List<RegionDTO> list = regionService.list();
         return ResponseEntity.ok().body(list);
     }
 
-    @PutMapping("/adm/update")
-    public ResponseEntity<?> update(@RequestBody RegionDTO dto) {
+    @GetMapping("/public/list")
+    public ResponseEntity<?> list() {
+        log.info("Request for list {}" );
+
+        List<RegionDTO> list = regionService.list();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PutMapping("/adm/update/{key}")
+    public ResponseEntity<?> update(@PathVariable String key, @RequestBody RegionDTO dto) {
         log.info("Request for update {}" , dto);
 //        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
-        regionService.update(dto);
+        regionService.update(dto, key);
         return ResponseEntity.ok().body("Successfully updated");
     }
 

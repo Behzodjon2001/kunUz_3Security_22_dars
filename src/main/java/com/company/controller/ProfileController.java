@@ -32,7 +32,7 @@ public class ProfileController {
     @PutMapping("/user/update")
     public ResponseEntity<?> update(@RequestBody ProfileDTO dto) {
         log.info("Request for update {}" , dto);
-        profileService.update(Integer.valueOf(CurrentUser.getCurrentUser().getUsername()), dto);
+        profileService.update(CurrentUser.getCurrentUser().getProfile().getId(), dto);
         return ResponseEntity.ok().body("Successfully updated");
     }
 

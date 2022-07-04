@@ -34,7 +34,7 @@ public class ArticleController {
     public ResponseEntity<?> create(@RequestBody @Valid ArticleCreateDTO dto) {
         log.info("Request for create {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
-        ArticleDTO articleDTO = articleService.create(dto, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        ArticleDTO articleDTO = articleService.create(dto, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body(articleDTO);
     }
 
@@ -43,13 +43,13 @@ public class ArticleController {
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody ArticleCreateDTO dto) {
         log.info("Request for update {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.MODERATOR);
-        ArticleDTO articleDTO = articleService.update(id, dto, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        ArticleDTO articleDTO = articleService.update(id, dto, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body("\tSuccessfully updated \n\n" + articleDTO);
     }
 
     @ApiOperation(value = "list By Category", notes="Method for list By Category")
-    @GetMapping("/public/list/cat")
-    public ResponseEntity<?> listByCategory(@RequestParam(name = "category") Integer id) {
+    @GetMapping("/public/list/cat/{id}")
+    public ResponseEntity<?> listByCategory(@PathVariable("id") Integer id) {
         log.info("Request for listByCategory {}" , id);
         List<ArticleDTO> list = articleService.listByCategory(id);
         return ResponseEntity.ok().body(list);
@@ -90,15 +90,15 @@ public class ArticleController {
     public ResponseEntity<?> publish(@RequestHeader("Content-ID") String id) {
         log.info("Request for publish {}" , id);
 //        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.PUBLISHER);
-        articleService.publish(id, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        articleService.publish(id, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body("Published");
     }
 
-    @PutMapping("/pub/remove")
+    @PutMapping("/publisher/remove")
     public ResponseEntity<?> remove(@RequestHeader("Content-ID") String id) {
         log.info("Request for remove {}" , id);
 //        Integer profileId = HttpHeaderUtil.getId(request, ProfileRole.PUBLISHER);
-        articleService.remove(id, Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        articleService.remove(id, CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().body("Removed");
     }
 

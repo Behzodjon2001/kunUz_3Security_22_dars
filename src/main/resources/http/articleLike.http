@@ -1,5 +1,6 @@
 POST http://localhost:8080/article_like/dislike
 Content-Type: application/json
+Authorization: Basic sadik 2225
 
 {
   "articleId": "402880e58187c2c7018187ead0510000"

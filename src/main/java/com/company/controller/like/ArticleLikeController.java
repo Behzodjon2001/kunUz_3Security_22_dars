@@ -27,7 +27,7 @@ public class ArticleLikeController {
     public ResponseEntity<Void> like(@RequestBody ArticleLikeDTO dto) {
         log.info("Request for like {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        articleLikeService.articleLike(dto.getArticleId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        articleLikeService.articleLike(dto.getArticleId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 
@@ -35,7 +35,7 @@ public class ArticleLikeController {
     public ResponseEntity<Void> dislike(@RequestBody ArticleLikeDTO dto) {
         log.info("Request for dislike {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        articleLikeService.articleDisLike(dto.getArticleId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        articleLikeService.articleDisLike(dto.getArticleId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 
@@ -43,7 +43,7 @@ public class ArticleLikeController {
     public ResponseEntity<Void> remove(@RequestBody ArticleLikeDTO dto) {
         log.info("Request for remove {}" , dto);
 //        Integer profileId = HttpHeaderUtil.getId(request);
-        articleLikeService.removeLike(dto.getArticleId(), Integer.valueOf(CurrentUser.getCurrentUser().getUsername()));
+        articleLikeService.removeLike(dto.getArticleId(), CurrentUser.getCurrentUser().getProfile().getId());
         return ResponseEntity.ok().build();
     }
 

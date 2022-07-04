@@ -37,11 +37,11 @@ public class CategoryController {
         return ResponseEntity.ok().body(list);
     }
 
-    @PutMapping("/adm/update")
-    public ResponseEntity<?> update(@RequestBody CategoryDTO dto) {
-        log.info("Request for update {}" , dto);
+    @PutMapping("/adm/update/{key}")
+    public ResponseEntity<?> update(@PathVariable String key,@RequestBody CategoryDTO dto) {
+        log.info("Request for update {}" , dto, key);
 //        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
-        categoryService.update(dto);
+        categoryService.update(dto,key);
         return ResponseEntity.ok().body("Successfully updated");
     }
 
@@ -54,7 +54,7 @@ public class CategoryController {
     }
 
     @GetMapping("/public")
-    public ResponseEntity<?> getArticleList(@RequestHeader(value = "Accept-Language", defaultValue = "uz") LangEnum lang) {
+    public ResponseEntity<?> getCategoryList(@RequestHeader(value = "Accept-Language", defaultValue = "uz") LangEnum lang) {
         log.info("Request for get article {}" , lang);
         List<CategoryDTO> list = categoryService.getList(lang);
         return ResponseEntity.ok().body(list);

@@ -1,21 +1,26 @@
 POST http://localhost:8080/article/adm/create
 Content-Type: application/json
-Authorization: Basic Ali alish123
+Authorization: Basic admin 123
 
 {
-
-  "content": "referendum haqida",
-  "description": "referendum haqida toliq",
-  "regionId": 3,
-  "categoryId": 2,
-  "typesList": [1, 2],
-  "tagList": ["sotsial", "d2as"]
+  "title": "Ura",
+  "content": "Qaro",
+  "description": "Qora .. ",
+  "regionId": 2,
+  "categoryId": 1,
+  "typesList": [
+    1,
+    2
+  ],
+  "tagList": [
+    "sotsial",
+    "d2as"
+  ]
 }
 
 ###
 
-GET http://localhost:8080/article/list/cat
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU4NDQwMDIsImV4cCI6MTY1NjA2MDAwMiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.cuh_kcsp2kpnJ5Qfbq2yd0VNQHpX-HNfVJF3g58doZ4
+GET http://localhost:8080/article/public/list/cat/1
 
 ###
 

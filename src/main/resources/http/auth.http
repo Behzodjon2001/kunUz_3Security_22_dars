@@ -38,6 +38,7 @@ Authorization: Basic Vali valish1123
 
 POST http://localhost:8080/auth/login
 Content-Type: application/json
+Authorization: Basic admin 123
 
 {
   "email": "admin",
