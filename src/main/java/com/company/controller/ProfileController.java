@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(tags = "Profile CRUD for Admin")
@@ -23,7 +24,7 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping("/adm/create")
-    public ResponseEntity<?> create(@RequestBody ProfileDTO dto) {
+    public ResponseEntity<?> create(@Valid @RequestBody ProfileDTO dto) {
         log.info("Request for create {}" , dto);
         ProfileDTO profileDTO = profileService.create(dto);
         return ResponseEntity.ok().body(profileDTO);

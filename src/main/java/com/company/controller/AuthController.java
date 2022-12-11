@@ -42,7 +42,7 @@ public class AuthController {
 
     @ApiOperation(value = "Sms verifacation", notes="Method for Sms verifacation", nickname = "Some Nick Name")
     @PostMapping("/verification")
-    public ResponseEntity<String> login(@RequestBody VerificationDTO dto) {
+    public ResponseEntity<String> verification(@RequestBody VerificationDTO dto) {
         log.info("Request for sms verifacation {}" , dto);
         String response = authService.verification(dto);
         return ResponseEntity.ok(response);
@@ -60,8 +60,7 @@ public class AuthController {
 
     @ApiOperation(value = "Resent Sms Code", notes="Method for Resent Sms")
     @GetMapping("/resend/{phone}")
-    public ResponseEntity<ResponseInfoDTO> resendSms(@ApiParam(value = "phone", required = true, example = "998901234567")
-                                                         @PathVariable("phone") String phone) {
+    public ResponseEntity<ResponseInfoDTO> resendSms(@PathVariable("phone") String phone) {
         ResponseInfoDTO response = authService.resendSms(phone);
         return ResponseEntity.ok(response);
     }

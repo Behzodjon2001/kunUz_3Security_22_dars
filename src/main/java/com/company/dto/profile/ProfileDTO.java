@@ -20,6 +20,7 @@ public class ProfileDTO {
     private String surname;
     @NotNull(message = "Email qani ?")
     private String email;
+    private String phone;
     @NotNull(message = "Password qani ?")
     private String password;
     private String attachId;

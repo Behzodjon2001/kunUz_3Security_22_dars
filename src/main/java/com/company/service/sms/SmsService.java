@@ -31,20 +31,22 @@ public class SmsService {
     private String key;
 
 
-    public SmsDTO sendRegistrationSms(String phone) {
+    public String sendRegistrationSms(String phone) {
         String code = RandomUtil.getRandomSmsCode();
         String message = "Kun.uz Test partali uchun\n registratsiya kodi: " + code;
 
-        SmsResponseDTO responseDTO = send(phone, message);
+//        SmsResponseDTO responseDTO = send(phone, message);
 
         SmsEntity entity = new SmsEntity();
         entity.setPhone(phone);
         entity.setCode(code);
         entity.setCreatedDate(LocalDateTime.now());
-        entity.setStatus(responseDTO.getSuccess());
+//        entity.setStatus(responseDTO.getSuccess());
 
         smsRepository.save(entity);
-        return null;
+
+        SmsDTO smsDTO = new SmsDTO();
+        return entity.getCode();
     }
 
     public boolean verifySms(String phone, String code) {
@@ -61,22 +63,22 @@ public class SmsService {
         return false;
     }
 
-    private SmsResponseDTO send(String phone, String message) {
-        SmsRequestDTO requestDTO = new SmsRequestDTO();
-        requestDTO.setKey(key);
-        requestDTO.setPhone(phone);
-        requestDTO.setMessage(message);
-        System.out.println("Sms Request: message " + message);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<SmsRequestDTO> entity = new HttpEntity<SmsRequestDTO>(requestDTO, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        SmsResponseDTO response = restTemplate.postForObject(smsUrl, entity, SmsResponseDTO.class);
-        System.out.println("Sms Response  " + response);
-        return response;
-    }
+//    private SmsResponseDTO send(String phone, String message) {
+//        SmsRequestDTO requestDTO = new SmsRequestDTO();
+//        requestDTO.setKey(key);
+//        requestDTO.setPhone(phone);
+//        requestDTO.setMessage(message);
+//        System.out.println("Sms Request: message " + message);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<SmsRequestDTO> entity = new HttpEntity<SmsRequestDTO>(requestDTO, headers);
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        SmsResponseDTO response = restTemplate.postForObject(smsUrl, entity, SmsResponseDTO.class);
+//        System.out.println("Sms Response  " + response);
+//        return response;
+//    }
 
     public PageImpl<SmsDTO> pagination(int page, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");

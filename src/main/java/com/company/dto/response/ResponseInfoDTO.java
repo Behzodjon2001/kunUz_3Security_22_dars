@@ -7,9 +7,9 @@ public class ResponseInfoDTO {
     private int status;
     private String massage;
 
-    public ResponseInfoDTO(int status) {
-        this.status = status;
-    }
+    private String code;
+
+
 
     public ResponseInfoDTO(int status, String massage) {
         this.status = status;

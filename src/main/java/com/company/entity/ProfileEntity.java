@@ -33,7 +33,7 @@ public class ProfileEntity {
 
     @Column(nullable = false)
     private String password;
-    @Column
+    @Column(unique = true)
     private String phone;
 
     @Column

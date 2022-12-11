@@ -34,7 +34,7 @@ public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer
 
     @Modifying
     @Transactional
-    @Query("update  ProfileEntity p set p.status=?2 where p.attach=?1")
+    @Query("update  ProfileEntity p set p.status=?2 where p.phone=?1")
     void updateStatusByPhone(String phone, ProfileStatus status);
 
     Page<ProfileEntity> findAllByVisible(Boolean b, Pageable pageable);

@@ -10,12 +10,14 @@ Content-Disposition: form-data; name="file"; filename="videoplayback.mp4"
 
 POST http://localhost:8080/attach/admUser/upload
 Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="lanbargine.jpg"
+Content-Disposition: form-data; name="file"; filename="Illustration 2.png"
 
-< C:\Users\Acer\Downloads\lanbargine.jpg
+< D:\zagruzka\Illustration 2.png
 
 ###
 
-GET localhost:8080/attach/adm/pagination?page=1&size=10
+GET localhost:8080/attach/admUser/pagination?page=0&size=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs

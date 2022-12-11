@@ -22,7 +22,7 @@ public class SmsController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody SmsDTO dto) {
         log.info("Request for create {}" , dto);
-        SmsDTO attachDTO = smsService.sendRegistrationSms(dto.getPhone());
+        String attachDTO = smsService.sendRegistrationSms(dto.getPhone());
         return ResponseEntity.ok().body(attachDTO);
     }
 

@@ -3,11 +3,11 @@ Content-Type: application/json
 #Authorization: Bearer
 
 {
-  "name": "Sawash",
-  "surname": "Sawashov",
-  "email": "vaxobovsiroj1998@gmail.com",
-  "phone": "998972199899",
-  "password": "1245"
+  "name": "Bahrom",
+  "surname": "Bahromov",
+  "email": "bahrom@gmail.com",
+  "phone": "998990109090",
+  "password": "1265"
 }
 
 
@@ -15,34 +15,11 @@ Content-Type: application/json
 
 POST http://localhost:8080/auth/login
 Content-Type: application/json
-Authorization: Basic 4 2225
+
 
 {
-  "email": "sadik",
-  "password": "2225"
-}
-
-###
-
-POST http://localhost:8080/auth/login
-Content-Type: application/json
-Authorization: Basic Vali valish1123
-
-{
-  "email": "moderator",
-  "password": "2345"
-}
-
-###
-
-
-POST http://localhost:8080/auth/login
-Content-Type: application/json
-Authorization: Basic admin 123
-
-{
-  "email": "admin",
-  "password": "123"
+  "email": "malikovbehzod2001@gmail.com",
+  "password": "444"
 }
 
 ###
@@ -51,13 +28,13 @@ POST http://localhost:8080/auth/verification
 Content-Type: application/json
 
 {
-  "phone": "972199898",
-  "code": 1245
+  "phone": "998990109090",
+  "code": 36743
 }
 
 ###
 
-POST http://localhost:8080/auth/email/verification/15
+GET http://localhost:8080/auth/resend/998988199891
 Content-Type: application/json
 
 ###

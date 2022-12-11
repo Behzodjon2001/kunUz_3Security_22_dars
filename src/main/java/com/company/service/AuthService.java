@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.config.CustomUserDetails;
 import com.company.dto.AuthDTO;
 import com.company.dto.EmailDTO;
 import com.company.dto.RegistrationDTO;
@@ -14,8 +15,13 @@ import com.company.exp.BadRequestException;
 import com.company.repository.ProfileRepository;
 import com.company.repository.sms.SmsRepository;
 import com.company.service.sms.SmsService;
+import com.company.util.JwtUtil;
+import com.company.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,14 +36,31 @@ public class AuthService {
     private SmsService smsService;
     @Autowired
     SmsRepository smsRepository;
-    @Autowired
-    EmailService emailService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private  EmailService emailService;
+
+    public ProfileDTO login(AuthDTO authDTO) {
+
+        Authentication authenticate = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(authDTO.getEmail(), authDTO.getPassword()));
+        CustomUserDetails user = (CustomUserDetails) authenticate.getPrincipal();
+        ProfileEntity profile = user.getProfile();
+
+        ProfileDTO dto = new ProfileDTO();
+        dto.setName(profile.getName());
+        dto.setSurname(profile.getSurname());
+        dto.setJwt(JwtUtil.encode(profile.getId(), profile.getRole()));
+
+        return dto;
+    }
     public String registration(RegistrationDTO dto) {
         Optional<ProfileEntity> optional = profileRepository.findByEmail(dto.getEmail());
         if (optional.isPresent()) {
-            log.error("This user already exist {}" , dto);
-            throw new BadRequestException("This user already exist");
+            throw new BadRequestException("User already exists");
         }
 
         ProfileEntity entity = new ProfileEntity();
@@ -45,40 +68,15 @@ public class AuthService {
         entity.setSurname(dto.getSurname());
         entity.setEmail(dto.getEmail());
         entity.setPhone(dto.getPhone());
-        entity.setPassword(dto.getPassword());
-
+        entity.setPassword(MD5Util.getMd5(dto.getPassword()));
+        entity.setStatus(ProfileStatus.NOT_ACTIVE);
         entity.setRole(ProfileRole.ROLE_USER);
-        entity.setStatus(ProfileStatus.ACTIVE);
         entity.setVisible(true);
-
         profileRepository.save(entity);
 
-        emailService.sendRegistrationEmail(entity.getEmail(), entity.getId());
-
-
-        return "Message was send";
+        return smsService.sendRegistrationSms(entity.getPhone());
     }
 
-    public ProfileDTO login(AuthDTO dto) {
-        Optional<ProfileEntity> optional = profileRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
-        if (optional.isEmpty()) {
-            log.error("Email or password is wrongt {}" , dto);
-            throw new BadRequestException("Email or password is wrong");
-        }
-
-        ProfileEntity profile = optional.get();
-
-        if (profile.getStatus().equals(ProfileStatus.NOT_ACTIVE)){
-            log.error("Not access {}" , dto);
-            throw new BadRequestException("Not access");
-        }
-
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setName(profile.getName());
-        profileDTO.setSurname(profile.getSurname());
-
-        return profileDTO;
-    }
 
     public String verification(VerificationDTO dto) {
         Optional<SmsEntity> optional = smsRepository.findTopByPhoneOrderByCreatedDateDesc(dto.getPhone());
@@ -103,8 +101,11 @@ public class AuthService {
             return new ResponseInfoDTO(-1, "Limit dan o'tib getgan");
         }
 
-        smsService.sendRegistrationSms(phone);
-        return new ResponseInfoDTO(1);
+        String s = smsService.sendRegistrationSms(phone);
+        ResponseInfoDTO responseInfoDTO = new ResponseInfoDTO();
+        responseInfoDTO.setCode(s);
+        responseInfoDTO.setStatus(1);
+        return responseInfoDTO;
     }
 
     public ResponseInfoDTO resendEmail(EmailDTO dto, Integer id) {
@@ -113,8 +114,11 @@ public class AuthService {
             return new ResponseInfoDTO(-1, "Limit dan o'tib getgan");
         }
 
-        emailService.sendRegistrationEmail(dto.getToAccount(),id);
-        return new ResponseInfoDTO(1);
+        String s = smsService.sendRegistrationSms(dto.toString());
+        ResponseInfoDTO responseInfoDTO = new ResponseInfoDTO();
+        responseInfoDTO.setCode(s);
+        responseInfoDTO.setStatus(1);
+        return responseInfoDTO;
     }
 
     public String emailVerification(Integer id) {

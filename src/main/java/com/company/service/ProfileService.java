@@ -11,10 +11,12 @@ import com.company.exp.ItemNotFoundException;
 import com.company.repository.AttachRepository;
 import com.company.repository.ProfileRepository;
 import com.company.repository.custome.CustomProfileRepository;
+import com.company.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -47,17 +49,19 @@ public class ProfileService {
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
         entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(MD5Util.getMd5(dto.getPassword()));
+        entity.setPhone(dto.getPhone());
 
-        Optional<AttachEntity> attaches = attachRepository.findById(dto.getAttachId());
-        if (attaches.isEmpty()) {
-            log.error("attache not found {}" , dto);
-            throw new ItemNotFoundException("attache not found");
-        }
-        AttachEntity attachEntity = attaches.get();
-        entity.setAttach(attachEntity);
+//        Optional<AttachEntity> attaches = attachRepository.findById(dto.getAttachId());
+//        if (attaches.isEmpty()) {
+//            log.error("attache not found {}" , dto);
+//            throw new ItemNotFoundException("attache not found");
+//        }
+//        AttachEntity attachEntity = attaches.get();
+//        entity.setAttach(attachEntity);
 
         entity.setStatus(ProfileStatus.ACTIVE);
+        entity.setCreatedDate(LocalDateTime.now());
         entity.setVisible(true);
 
         profileRepository.save(entity);
