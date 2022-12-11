@@ -38,4 +38,6 @@ public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer
     void updateStatusByPhone(String phone, ProfileStatus status);
 
     Page<ProfileEntity> findAllByVisible(Boolean b, Pageable pageable);
+
+    Iterable<ProfileEntity> findAll(Pageable pageable);
 }

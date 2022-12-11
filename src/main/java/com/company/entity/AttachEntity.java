@@ -35,7 +35,7 @@ public class AttachEntity {
     public AttachEntity() {
     }
 
-    public AttachEntity(String attachId) {
-
+    public AttachEntity(String id) {
+        this.id = id;
     }
 }

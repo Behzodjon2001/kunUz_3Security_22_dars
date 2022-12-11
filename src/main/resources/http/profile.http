@@ -5,7 +5,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3M
 {
   "name": "Sardor",
   "surname": "Sardorov",
-  "email": "sadgik",
+  "email": "sa7999@@9988ik",
   "password": "2225",
   "role": "ROLE_USER",
   "phone": "998914640909",
@@ -14,24 +14,64 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3M
 
 ###
 
-PUT http://localhost:8080/profile/update
+PUT http://localhost:8080/profile/adm/updateByAdmin
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU4NDA1NjEsImV4cCI6MTY1NjA1NjU2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hc-Zvy9Wi3V7b5HGp0IFqg_GYt_h3JPVG8B43hqLdq4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
 
 {
-  "name": "Valijon",
-  "surname": "Valijonov",
-  "password": "123"
+  "id" : 22,
+  "name": "Shamshot",
+  "surname": "Shamshotov",
+  "password": "28895",
+  "phone": "99891499999"
+}
+
+###
+
+PUT http://localhost:8080/profile/current/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
+
+{
+ "attachId": "fd7b3e8d-4518-41fc-aa64-2a8dae1cca52"
+}
+
+###
+
+PUT http://localhost:8080/profile/user/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NzA5MjksImV4cCI6MTY3MDk4NjkyOSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxOSwicm9sZSI6IlJPTEVfVVNFUiJ9.mv9oMBLA03penGlwhq1fGBVV2k8paDgvqzOkTx3ASq4
+
+{
+  "id" : 19,
+  "name": "Sherzod",
+  "surname": "Shermatov",
+  "password": "2885",
+  "phone": "99891499999"
 }
 
 
 ###
 
-GET localhost:8080/profile/adm/list/USER
-Authorization: Basic 1 123
+GET localhost:8080/profile/adm/list?page=1&size=2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
 
+ {
+   "role": "all"
+ }
 
 ###
 
-DELETE http://localhost:8080/profile/delete/1
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU4NDA1NjEsImV4cCI6MTY1NjA1NjU2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hc-Zvy9Wi3V7b5HGp0IFqg_GYt_h3JPVG8B43hqLdq4
+DELETE http://localhost:8080/profile/adm/delete/24
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
+
+###
+
+POST localhost:8080/profile/adm/filter
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
+
+{
+  "name": "Sardor"
+}

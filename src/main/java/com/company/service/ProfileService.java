@@ -14,9 +14,11 @@ import com.company.repository.custome.CustomProfileRepository;
 import com.company.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -52,13 +54,13 @@ public class ProfileService {
         entity.setPassword(MD5Util.getMd5(dto.getPassword()));
         entity.setPhone(dto.getPhone());
 
-//        Optional<AttachEntity> attaches = attachRepository.findById(dto.getAttachId());
-//        if (attaches.isEmpty()) {
-//            log.error("attache not found {}" , dto);
-//            throw new ItemNotFoundException("attache not found");
-//        }
-//        AttachEntity attachEntity = attaches.get();
-//        entity.setAttach(attachEntity);
+        Optional<AttachEntity> attaches = attachRepository.findById(dto.getAttachId());
+        if (attaches.isEmpty()) {
+            log.error("attache not found {}" , dto);
+            throw new ItemNotFoundException("attache not found");
+        }
+        AttachEntity attachEntity = attaches.get();
+        entity.setAttach(attachEntity);
 
         entity.setStatus(ProfileStatus.ACTIVE);
         entity.setCreatedDate(LocalDateTime.now());
@@ -70,6 +72,45 @@ public class ProfileService {
     }
 
     public void update(Integer pId, ProfileDTO dto) {
+
+        Optional<ProfileEntity> profile = profileRepository.findById(pId);
+
+        if (profile.isEmpty()) {
+            log.error("Profile Not Found {}" , dto);
+            throw new ItemNotFoundException("Profile Not Found ");
+        }
+
+
+        ProfileEntity entity = profile.get();
+
+
+        // 1st photo
+        // bor edi yangisiga almashtiradi
+        // null
+
+//        if (entity.getAttach() == null && dto.getAttachId() != null) {
+//
+//            entity.setAttach(new AttachEntity(dto.getAttachId()));
+//
+//        } else if (entity.getAttach() != null && dto.getAttachId() == null) {
+//
+//            attachService.delete(entity.getAttach().getId());
+//            entity.setAttach(null);
+//
+//        } else if (entity.getAttach() != null && dto.getAttachId() != null && entity.getAttach().getId().equals(dto.getAttachId())) {
+//
+//            entity.setAttach(new AttachEntity(dto.getAttachId()));
+//
+//        }
+
+        entity.setName(dto.getName());
+        entity.setSurname(dto.getSurname());
+        entity.setPhone(dto.getPhone());
+        entity.setPassword(MD5Util.getMd5(dto.getPassword()));
+        profileRepository.save(entity);
+    }
+
+    public void updateCurrentAttach(Integer pId, ProfileDTO dto) {
 
         Optional<ProfileEntity> profile = profileRepository.findById(pId);
 
@@ -100,10 +141,6 @@ public class ProfileService {
             entity.setAttach(new AttachEntity(dto.getAttachId()));
 
         }
-
-        entity.setName(dto.getName());
-        entity.setSurname(dto.getSurname());
-        entity.setEmail(dto.getEmail());
         profileRepository.save(entity);
     }
 
@@ -114,14 +151,17 @@ public class ProfileService {
         });
     }
 
-    public List<ProfileDTO> list(String role) {
-        Iterable<ProfileEntity> all;
-        if (role.equals("all")) {
-            all = profileRepository.findAll();
-        } else {
-            all = profileRepository.userList(ProfileStatus.ACTIVE, checkRole(role));
-        }
-        return entityToDtoList(all);
+    public PageImpl<ProfileDTO> list(String role , int page, int size) {
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<ProfileEntity> all1 = (Page<ProfileEntity>) profileRepository.findAll(pageable);
+
+        List<ProfileEntity> entityList = all1.getContent();
+        List<ProfileDTO> dtoList = entityToDtoList(entityList);
+
+        return new PageImpl<>(dtoList, pageable, all1.getTotalElements());
     }
 
     private List<ProfileDTO> entityToDtoList(Iterable<ProfileEntity> entityList) {
@@ -132,7 +172,7 @@ public class ProfileService {
             dto.setName(entity.getName());
             dto.setSurname(entity.getSurname());
             dto.setEmail(entity.getEmail());
-            dto.setAttachId(entity.getAttach().getId());
+//            dto.setAttachId(entity.getAttach().getId());
             dto.setCreatedDate(entity.getCreatedDate());
             dtoList.add(dto);
         }
@@ -158,7 +198,19 @@ public class ProfileService {
     }
 
     public List<ProfileDTO> filter(ProfileFilterDTO dto) {
-        customProfileRepository.filter(dto);
-        return null;
+        ProfileDTO dto1 = new ProfileDTO();
+        List<ProfileDTO> listdto = new ArrayList<>();
+        for (ProfileEntity profileEntity : customProfileRepository.filter(dto)) {
+            dto1.setName(profileEntity.getName());
+            dto1.setSurname(profileEntity.getSurname());
+            dto1.setPassword(profileEntity.getPassword());
+            dto1.setPhone(profileEntity.getPhone());
+            dto1.setVisible(profileEntity.getVisible());
+            dto1.setCreatedDate(profileEntity.getCreatedDate());
+            dto1.setStatus(profileEntity.getStatus());
+            dto1.setEmail(profileEntity.getEmail());
+            listdto.add(dto1);
+        }
+        return listdto;
     }
 }

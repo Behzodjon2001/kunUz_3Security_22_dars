@@ -13,9 +13,9 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA3NTg5NjYsImV4cCI6MTY3MDk3NDk2NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KEvi09q8IcRX7aZ2IAvwIWAWwU78DpeBZjAU5rcPhIs
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="Illustration 2.png"
+Content-Disposition: form-data; name="file"; filename="mers w222 (1).jpg"
 
-< D:\zagruzka\Illustration 2.png
+< D:\zagruzka\mers w222 (1).jpg
 
 ###
 
