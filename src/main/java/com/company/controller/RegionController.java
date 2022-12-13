@@ -44,6 +44,14 @@ public class RegionController {
         return ResponseEntity.ok().body(list);
     }
 
+//    @GetMapping("/public/langName")
+//    public ResponseEntity<?> langName(@RequestBody RegionDTO dto) {
+//        log.info("Request for list {}", dto);
+//
+//        List<RegionDTO> list = regionService.langName(dto);
+//        return ResponseEntity.ok().body(list);
+//    }
+
     @PutMapping("/adm/update/{key}")
     public ResponseEntity<?> update(@PathVariable String key, @RequestBody RegionDTO dto) {
         log.info("Request for update {}" , dto);

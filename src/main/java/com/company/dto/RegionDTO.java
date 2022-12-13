@@ -22,4 +22,5 @@ public class RegionDTO {
     @NotNull(message = "Name en qani")
     private String nameEn;
     private String name;
+    private Boolean visible;
 }

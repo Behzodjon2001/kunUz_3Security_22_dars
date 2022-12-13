@@ -30,6 +30,7 @@ public class RegionService {
         entity.setNameUz(dto.getNameUz());
         entity.setNameRu(dto.getNameRu());
         entity.setNameEn(dto.getNameEn());
+        entity.setVisible(true);
         regionRepository.save(entity);
 
         dto.setCreatedDate(entity.getCreated_Date());
@@ -38,7 +39,7 @@ public class RegionService {
     }
 
     public List<RegionDTO> list() {
-        Iterable<RegionEntity> all = regionRepository.findAll();
+        Iterable<RegionEntity> all = regionRepository.findByVisible(true);
         List<RegionDTO> list = new LinkedList<>();
         for (RegionEntity entity : all) {
             RegionDTO dto = new RegionDTO();
@@ -53,6 +54,23 @@ public class RegionService {
         }
         return list;
     }
+
+//    public List<RegionDTO> langName(RegionDTO dto1) {
+//        Iterable<RegionEntity> all = regionRepository.findByName(dto1.getName());
+//        List<RegionDTO> list = new LinkedList<>();
+//        for (RegionEntity entity : all) {
+//            RegionDTO dto = new RegionDTO();
+//            dto.setId(entity.getId());
+//            dto.setKey(entity.getKey());
+//            dto.setNameUz(entity.getNameUz());
+//            dto.setNameRu(entity.getNameRu());
+//            dto.setNameEn(entity.getNameEn());
+//            dto.setCreatedDate(entity.getCreated_Date());
+//
+//            list.add(dto);
+//        }
+//        return list;
+//    }
 
     public void update(RegionDTO dto,String key) {
        RegionEntity entity = get(key);
@@ -76,7 +94,9 @@ public class RegionService {
             log.error("This region not found {}" , key);
             throw new BadRequestException("This region not found");
         }
-        regionRepository.deleteByKey(key);
+        RegionEntity regionEntity = byKey.get();
+        regionEntity.setVisible(false);
+        regionRepository.save(regionEntity);
     }
     public RegionEntity get(Integer id) {
         return regionRepository.findById(id).orElseThrow(() -> {

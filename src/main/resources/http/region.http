@@ -1,29 +1,40 @@
 POST http://localhost:8080/region/adm/create
 Content-Type: application/json
-Authorization: Basic admin 123
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA5NjI3MzgsImV4cCI6MTY3MTE3ODczOCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9._8Vlob3qHZFW9aAdLEjoGQK6HXO7o-lK3ywe7bqn_Ow
 
 {
-  "key": "guliston",
-  "nameUz": "uz",
-  "nameRu": "ru",
-  "nameEn": "en"
+  "key": "jizzax",
+  "nameUz": "Jizzax",
+  "nameRu": "Джиззах",
+  "nameEn": "Djizzax"
 }
 
 ###
 
 GET http://localhost:8080/region/adm/list
-Authorization: Basic admin 123
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA5NjI3MzgsImV4cCI6MTY3MTE3ODczOCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9._8Vlob3qHZFW9aAdLEjoGQK6HXO7o-lK3ywe7bqn_Ow
 
 
 ###
 
-PUT http://localhost:8080/region/adm/update/ttt
+PUT http://localhost:8080/region/adm/update/guliston
 Content-Type: application/json
-Authorization: Basic admin 123
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA5NjI3MzgsImV4cCI6MTY3MTE3ODczOCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9._8Vlob3qHZFW9aAdLEjoGQK6HXO7o-lK3ywe7bqn_Ow
 
 {
-  "key": "ttt",
-  "nameUz": "toshkent",
-  "nameRu": "tashkent",
-  "nameEn": "tashkent"
+  "key": "guliston",
+  "nameUz": "Guluston",
+  "nameRu": "Гулистан",
+  "nameEn": "Gulistan"
 }
+
+###
+
+GET http://localhost:8080/region/public/list
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:8080/region/adm/delete/guliston
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzA5NjI3MzgsImV4cCI6MTY3MTE3ODczOCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9._8Vlob3qHZFW9aAdLEjoGQK6HXO7o-lK3ywe7bqn_Ow

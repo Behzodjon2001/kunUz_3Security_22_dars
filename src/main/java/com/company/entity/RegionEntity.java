@@ -30,5 +30,8 @@ public class RegionEntity {
     @Column(name = "name_en")
     private String nameEn;
 
+    @Column
+    private Boolean visible;
+
 
 }
